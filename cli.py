@@ -4,19 +4,19 @@ from dpendulum_chg import *
 from dpendulum_plotting import animate_double_pendulum
 
 # Set inputs
-inputs = {
-    time: 0.,
-    step: 0.01,
-    g: 9.81,
+inputs = dict(
+    time=0.,            #s
+    step=0.02,          #s
+    g=9.81,             #m/s^2
 
-    alpha_A: 0.,
-    theta_A: 0.,
-    omega_B: 0.,
-    theta_B: -np.pi/4,
+    alpha_A=0.,         #rad/s^2
+    theta_A=0.,         #rad
+    omega_B=0.,         #rad/s
+    theta_B=-0.3,       #rad
 
-    driven_speed: 1.5,
-    driven_period: 4,
-}
+    driven_speed=1.2,   #rad/s
+    driven_period=2,    #s
+)
 
 # Optional nodes and edges to debug
 debug_nodes = ['alpha_B'] if False else None
@@ -37,6 +37,7 @@ if t is None:
     print("No solutions found")
 else:
     print(t)
+
 
 # Animation
 animate_double_pendulum(t, interval=10)
