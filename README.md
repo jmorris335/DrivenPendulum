@@ -52,6 +52,6 @@ where `<target>` is the Node you want to simulate.
 You can also animate the simulation by calling the `animate_double_pendulum` function in `dpendulum_plotting.py`. The primary argument for this function is the output (`t`) from `chg.solve()`. This output contains the values of all the solved variables in the simulation path. As long as the simulation path contained all the angular positions for the two pendulums, you should be able to pass this node to the function to produce an animation similar to the one at the top.
 
 ## Licensing
-For questions, comments, or help, check out the [discussion board](https://github.com/jmorris335/ConstraintHg/discussions) for ConstraintHg.
-Author: [John Morris](https://orcid.org/0009-0005-6571-1959)
-License: MIT License
+For questions, comments, or help, check out the [discussion board](https://github.com/jmorris335/ConstraintHg/discussions) for ConstraintHg.  
+Author: [John Morris](https://orcid.org/0009-0005-6571-1959)  
+License: MIT License  
