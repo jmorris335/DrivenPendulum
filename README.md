@@ -15,7 +15,11 @@ pip install constrainthg
 ### Setup
 After that, you can execute the model via the caller interface (`cli.py`). That script allows you to set the inputs and setup the pendulum simulation.
 
-The model has 8 different functions found in `depndulum_rels.py`. These map between the XX variables in the system, forming XX edges, as given in `dpendulum_chg.py`.
+The model has 8 different functions found in `depndulum_rels.py`. These map between the 20 variables in the system, forming 10 edges, as shown below. The defintion for all of these is in `dpendulum_chg.py`.
+
+<p align="center">
+    <img width="600" alt="chg-driven" src="https://github.com/user-attachments/assets/330d2088-6691-41aa-8502-7461d779f2e8" />
+</p>
 
 To simulat the model, you have to provide several inputs. The most common set of inputs is:
 
