@@ -1,6 +1,6 @@
 '''
 Name: dpendulum_chg.py
-Author: John Morris
+Author: John Morris, jhmmrs@clemson.edu, ORCID: 0009-0005-6571-1959
 Date: 2 Oct 2025
 Purpose: CHG system model for driven double pendulum
 Rights: MIT License
@@ -45,29 +45,29 @@ ydot_B = chg.add_node(Node('ydot_B', units='m/s'))
 yddot_B = chg.add_node(Node('yddot_B', units='m/s^2'))
 
 # RELATIONSHIPS
-chg.add_edge(
-    {'g': g,
-     'l': l_A,
-     'theta': theta_A},
-    target=alpha_A,
-    rel=Rsimple_angular_accel,
-    label='simple_pend_A',
-)
-chg.add_edge(
-    {'g': g,
-     'l': l_B,
-     'theta': theta_B},
-    target=alpha_B,
-    rel=Rsimple_angular_accel,
-    label='simple_pend_B',
-)
+# chg.add_edge(
+#     {'g': g,
+#      'l': l_A,
+#      'theta': theta_A},
+#     target=alpha_A,
+#     rel=Rsimple_angular_accel,
+#     label='simple_pend_A',
+# )
+# chg.add_edge(
+#     {'g': g,
+#      'l': l_B,
+#      'theta': theta_B},
+#     target=alpha_B,
+#     rel=Rsimple_angular_accel,
+#     label='simple_pend_B',
+# )
 chg.add_edge(
     {'alpha': alpha_A,
      'omega': omega_A,
      'theta': theta_A},
     target=xddot_B,
     rel=Rhorizontal_accel,
-    index_via=lambda omega, theta, **kw : R.Rsame(omega, theta),
+    index_via=lambda omega, theta, alpha, **kw : R.Rsame(omega, theta, alpha),
     label='horizontal_accel_B',
 )
 chg.add_edge(
@@ -76,7 +76,7 @@ chg.add_edge(
      'theta': theta_A},
     target=yddot_B,
     rel=Rvertical_accel,
-    index_via=lambda omega, theta, **kw : R.Rsame(omega, theta),
+    index_via=lambda omega, theta, alpha, **kw : R.Rsame(omega, theta, alpha),
     label='vertical_accel_B',
 )
 chg.add_edge(
@@ -107,6 +107,16 @@ chg.add_edge(
 #     index_offset=1,
 #     label='integrating_omega_A',
 # )
+chg.add_edge(omega_A, 'prev_omega_A', R.Rfirst)
+chg.add_edge(
+    {'y2': omega_A,
+     'y1': 'prev_omega_A',
+     'step': step},
+    target=alpha_A,
+    rel=Rdifferentiate,
+    index_via=Rdifferentiate_via,
+    label='differentiate_omega_A->alpha_A'
+)
 chg.add_edge(
     {'base': theta_A,
      'slope': omega_A,
@@ -115,7 +125,7 @@ chg.add_edge(
     rel=Reuler,
     index_via=Reuler_via,
     index_offset=1,
-    label='integrating_theta_A',
+    label='integrating_omega_A->theta_A',
 )
 chg.add_edge(
     {'base': omega_B,
@@ -125,7 +135,7 @@ chg.add_edge(
     rel=Reuler,
     index_via=Reuler_via,
     index_offset=1,
-    label='integrating_omega_B',
+    label='integrating_alpha_B->omega_B',
 )
 chg.add_edge(
     {'base': theta_B,
@@ -135,6 +145,6 @@ chg.add_edge(
     rel=Reuler,
     index_via=Reuler_via,
     index_offset=1,
-    label='integrating_theta_B',
+    label='integrating_omega_B->theta_B',
 )
 chg.add_edge({step, time}, time, R.Rsum, index_offset=1)

@@ -6,18 +6,18 @@ from constrainthg import TNode
 def static_plot_double_pendulum(l_A: float, l_B: float,
                          theta_A: float, theta_B: float):
     """Plot a double pendulum in a given configuration."""
-    x1 = l_A * np.sin(theta_A)
-    y1 = -l_A * np.cos(theta_A)
+    xA = l_A * np.sin(theta_A)
+    yA = -l_A * np.cos(theta_A)
 
-    x2 = x1 + l_B * np.sin(theta_B)
-    y2 = y1 - l_B * np.cos(theta_B)
+    xB = xA + l_B * np.sin(theta_B)
+    yB = yA - l_B * np.cos(theta_B)
 
     window_width = (l_A + l_B) * 1.1
 
     # Plot
     plt.figure(figsize=(5,5))
-    plt.plot([0, x1], [0, y1], 'o-', lw=2, color="tab:blue")  # first rod
-    plt.plot([x1, x2], [y1, y2], 'o-', lw=2, color="tab:orange")  # second rod
+    plt.plot([0, xA], [0, yA], 'o-', lw=2, color="tab:blue")  # first rod
+    plt.plot([xA, xB], [yA, yB], 'o-', lw=2, color="tab:orange")  # second rod
 
 
     
@@ -27,8 +27,9 @@ def static_plot_double_pendulum(l_A: float, l_B: float,
     plt.title("Driven Double Pendulum")
     plt.show()
 
-def animate_double_pendulum(t: TNode=None, theta_As: list=None, theta_Bs: list=None, l_A=1, l_B=1, 
-                            interval=50):
+def animate_double_pendulum(t: TNode=None, interval=50,
+                            theta_As: list=None, theta_Bs: list=None,
+                            l_A=1, l_B=1):
     """Animates a double pendulum in a given configuration."""
     if t is not None:
         theta_As = t.values.get('theta_A', [])
@@ -49,13 +50,13 @@ def animate_double_pendulum(t: TNode=None, theta_As: list=None, theta_Bs: list=N
 
     def update(index):
         theta_A, theta_B = theta_As[index], theta_Bs[index]
-        x1 = l_A * np.sin(theta_A)
-        y1 = -l_A * np.cos(theta_A)
-        x2 = x1 + l_B * np.sin(theta_B)
-        y2 = y1 - l_B * np.cos(theta_B)
+        xA = l_A * np.sin(theta_A)
+        yA = -l_A * np.cos(theta_A)
+        xB = xA + l_B * np.sin(theta_B)
+        yB = yA - l_B * np.cos(theta_B)
 
-        pendA.set_data([0, x1], [0, y1])
-        pendB.set_data([x1, x2], [y1, y2])
+        pendA.set_data([0, xA], [0, yA])
+        pendB.set_data([xA, xB], [yA, yB])
 
         return pendA, pendB
 

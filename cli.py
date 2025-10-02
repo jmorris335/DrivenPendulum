@@ -6,16 +6,17 @@ from dpendulum_plotting import animate_double_pendulum
 # Set inputs
 inputs = {
     time: 0.,
-    step: 0.05,
+    step: 0.02,
     g: 9.81,
 
     alpha_A: 0.,
     theta_A: 0.,
-    theta_B: np.pi/4,
     omega_B: 0.,
+    theta_B: -np.pi/8,
 
-    driven_speed: np.pi/8,
-    driven_period: 1,
+
+    driven_speed: np.pi/3,
+    driven_period: 2,
 }
 
 # Optional nodes and edges to debug
@@ -31,7 +32,7 @@ t = chg.solve(
     debug_edges=debug_edges,
     to_print=False,
     logging_level=DEBUG+2,
-    search_depth=500,
+    search_depth=5000,
 )
 
 if t is None:
@@ -39,4 +40,5 @@ if t is None:
 else:
     print(t)
 
-animate_double_pendulum(t)
+# Animation
+animate_double_pendulum(t, interval=30)
