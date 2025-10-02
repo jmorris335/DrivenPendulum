@@ -1,6 +1,9 @@
 # Driven Double Pendulum Model
 This repository contains a CHG model for a driven, double pendulum, primarily used for demonstration purposes.
 
+![drivenpendulum](https://github.com/user-attachments/assets/41bb6179-28b2-4c4c-bd18-62e374f9f730)
+
+
 ## Running the package
 ### Installation
 This package is built on [ConstraintHg](https://constrainthg.readthedocs.io/en/latest/index.html), which is available on the Python Package Index. You can install this using PIP after creating a virtual environment:
