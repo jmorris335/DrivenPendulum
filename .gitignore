@@ -28,3 +28,5 @@ sdist/
 
 # Custom
 *.log
+dev/
+media/

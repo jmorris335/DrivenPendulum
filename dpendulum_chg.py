@@ -51,6 +51,7 @@ yddot_B = chg.add_node(Node('yddot_B', units='m/s^2'))
 #      'theta': theta_A},
 #     target=alpha_A,
 #     rel=Rsimple_angular_accel,
+#     disposable=['theta'],
 #     label='simple_pend_A',
 # )
 # chg.add_edge(
@@ -59,6 +60,7 @@ yddot_B = chg.add_node(Node('yddot_B', units='m/s^2'))
 #      'theta': theta_B},
 #     target=alpha_B,
 #     rel=Rsimple_angular_accel,
+#     disposable=['theta'],
 #     label='simple_pend_B',
 # )
 chg.add_edge(
@@ -68,6 +70,7 @@ chg.add_edge(
     target=xddot_B,
     rel=Rhorizontal_accel,
     index_via=lambda omega, theta, alpha, **kw : R.Rsame(omega, theta, alpha),
+    disposable=['alpha', 'omega', 'theta'],
     label='horizontal_accel_B',
 )
 chg.add_edge(
@@ -77,6 +80,7 @@ chg.add_edge(
     target=yddot_B,
     rel=Rvertical_accel,
     index_via=lambda omega, theta, alpha, **kw : R.Rsame(omega, theta, alpha),
+    disposable=['alpha', 'omega', 'theta'],
     label='vertical_accel_B',
 )
 chg.add_edge(
@@ -87,6 +91,7 @@ chg.add_edge(
     target=alpha_B,
     rel=Raccel_translating_base,
     index_via=lambda xddot, yddot, theta, **kw : R.Rsame(xddot, yddot, theta),
+    disposable=['xddot', 'yddot', 'theta'],
     label='angular_accel_translating_base_B'
 )
 chg.add_edge(
@@ -95,18 +100,9 @@ chg.add_edge(
      "speed": driven_speed},
     target=omega_A,
     rel=Rdriven_velocity,
+    disposable=['time'],
     label='driven_velocity_A',
 )
-# chg.add_edge(
-#     {'base': omega_A,
-#      'slope': alpha_A,
-#      'step': step},
-#     target=omega_A,
-#     rel=Reuler,
-#     index_via=Reuler_via,
-#     index_offset=1,
-#     label='integrating_omega_A',
-# )
 chg.add_edge(omega_A, 'prev_omega_A', R.Rfirst)
 chg.add_edge(
     {'y2': omega_A,
@@ -115,8 +111,20 @@ chg.add_edge(
     target=alpha_A,
     rel=Rdifferentiate,
     index_via=Rdifferentiate_via,
+    disposable=['y2', 'y1'],
     label='differentiate_omega_A->alpha_A'
 )
+# chg.add_edge(
+#     {'base': omega_A,
+#      'slope': alpha_A,
+#      'step': step},
+#     target=omega_A,
+#     rel=Reuler,
+#     index_via=Reuler_via,
+#     disposable=['base', 'slope'],
+#     index_offset=1,
+#     label='integrating_omega_A',
+# )
 chg.add_edge(
     {'base': theta_A,
      'slope': omega_A,
@@ -124,6 +132,7 @@ chg.add_edge(
     target=theta_A,
     rel=Reuler,
     index_via=Reuler_via,
+    disposable=['base', 'slope'],
     index_offset=1,
     label='integrating_omega_A->theta_A',
 )
@@ -134,6 +143,7 @@ chg.add_edge(
     target=omega_B,
     rel=Reuler,
     index_via=Reuler_via,
+    disposable=['base', 'slope'],
     index_offset=1,
     label='integrating_alpha_B->omega_B',
 )
@@ -144,6 +154,7 @@ chg.add_edge(
     target=theta_B,
     rel=Reuler,
     index_via=Reuler_via,
+    disposable=['base', 'slope'],
     index_offset=1,
     label='integrating_omega_B->theta_B',
 )
