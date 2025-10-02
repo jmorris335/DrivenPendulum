@@ -67,7 +67,7 @@ chg.add_edge(
      'theta': theta_A},
     target=xddot_B,
     rel=Rhorizontal_accel,
-    index_via=lambda alpha, omega, theta, **kw : R.Rsame(alpha, omega, theta),
+    index_via=lambda omega, theta, **kw : R.Rsame(omega, theta),
     label='horizontal_accel_B',
 )
 chg.add_edge(
@@ -76,7 +76,7 @@ chg.add_edge(
      'theta': theta_A},
     target=yddot_B,
     rel=Rvertical_accel,
-    index_via=lambda alpha, omega, theta, **kw : R.Rsame(alpha, omega, theta),
+    index_via=lambda omega, theta, **kw : R.Rsame(omega, theta),
     label='vertical_accel_B',
 )
 chg.add_edge(
@@ -97,16 +97,16 @@ chg.add_edge(
     rel=Rdriven_velocity,
     label='driven_velocity_A',
 )
-chg.add_edge(
-    {'base': omega_A,
-     'slope': alpha_A,
-     'step': step},
-    target=omega_A,
-    rel=Reuler,
-    index_via=Reuler_via,
-    index_offset=1,
-    label='integrating_omega_A',
-)
+# chg.add_edge(
+#     {'base': omega_A,
+#      'slope': alpha_A,
+#      'step': step},
+#     target=omega_A,
+#     rel=Reuler,
+#     index_via=Reuler_via,
+#     index_offset=1,
+#     label='integrating_omega_A',
+# )
 chg.add_edge(
     {'base': theta_A,
      'slope': omega_A,
@@ -137,3 +137,4 @@ chg.add_edge(
     index_offset=1,
     label='integrating_theta_B',
 )
+chg.add_edge({step, time}, time, R.Rsum, index_offset=1)

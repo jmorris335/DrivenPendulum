@@ -52,5 +52,5 @@ def Reuler(base: float, slope: float, step: float, **kwargs):
     return integrated
 
 def Reuler_via(base: int, slope: int, **kwargs):
-    '''Only valid if the base and slope have the same index.'''
+    '''Valid if the base and slope have the same index or are constant.'''
     return R.Rsame(base, slope)
