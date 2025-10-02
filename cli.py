@@ -27,12 +27,12 @@ debug_edges = ['angular_accel_translating_base_B'] if False else None
 t = chg.solve(
     target=theta_B,
     inputs=inputs,
-    min_index=50,
+    min_index=1000,
     debug_nodes=debug_nodes,
     debug_edges=debug_edges,
     to_print=False,
     logging_level=DEBUG+2,
-    search_depth=5000,
+    search_depth=10000,
 )
 
 if t is None:
