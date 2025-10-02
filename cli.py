@@ -30,8 +30,7 @@ t = chg.solve(
     debug_nodes=debug_nodes,
     debug_edges=debug_edges,
     to_print=False,
-    logging_level=DEBUG,
-    search_depth=10000,
+    logging_level=INFO,
 )
 
 if t is None:
